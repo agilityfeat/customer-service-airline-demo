@@ -1,5 +1,7 @@
-import { TodosLocalStorage } from "@/modules/todos/infrastructure/todos.local-storage"
+import { TodosLocalStorage } from '@/modules/todos/infrastructure/todos.local-storage';
 
-export const outputs = {
-	todosOutput: new TodosLocalStorage(),
-}
+const outputs = {
+  todosOutput: new TodosLocalStorage(),
+};
+
+export { outputs }

@@ -1,9 +1,12 @@
-import React from "react"
-import styles from "./error.module.scss"
+import React from 'react';
+import styles from './error.module.scss';
 
 interface Props {
 	error: string
 }
 
-export const Error = ({ error }: Props) =>
-	error ? <div className={styles.error}>{error}</div> : <></>
+const Error = function err({ error }: Props) {
+  return error ? <div className={styles.error}>{error}</div> : null;
+};
+
+export { Error }

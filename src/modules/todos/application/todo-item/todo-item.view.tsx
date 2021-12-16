@@ -1,7 +1,7 @@
-import React from "react"
-import { Todo } from "@/modules/todos/application/todo"
-import styles from "./todo-item.module.scss"
-import { Error } from "@/components/error/error"
+import React from 'react';
+import { Todo } from '@/modules/todos/application/todo';
+import styles from './todo-item.module.scss';
+import { Error } from '@/components/error/error';
 
 interface Props {
 	todo: Todo
@@ -11,27 +11,28 @@ interface Props {
 	errorToRemoveTodo: string
 }
 
-export const TodoItemView = ({
-	todo,
-	completeTodo,
-	removeTodo,
-	errorToCompleteTodo,
-	errorToRemoveTodo,
-}: Props) => {
-	return (
-		<li
-			key={todo.title}
-			className={
-				styles.container +
-				(todo.isCompleted ? " " + styles.isCompleted : "")
+export const TodoItemView = function todoitemview({
+  todo,
+  completeTodo,
+  removeTodo,
+  errorToCompleteTodo,
+  errorToRemoveTodo,
+}: Props) {
+  return (
+    <li
+      key={todo.title}
+      className={
+				styles.container
+				+ (todo.isCompleted ? ` ${styles.isCompleted}` : '')
 			}
-			onClick={completeTodo}
-			onContextMenu={removeTodo}
-		>
-			{todo.title}
+      onClick={completeTodo}
+      onContextMenu={removeTodo}
+      role="presentation"
+    >
+      {todo.title}
 
-			<Error error={errorToCompleteTodo} />
-			<Error error={errorToRemoveTodo} />
-		</li>
-	)
-}
+      <Error error={errorToCompleteTodo} />
+      <Error error={errorToRemoveTodo} />
+    </li>
+  );
+};

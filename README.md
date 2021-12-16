@@ -1,13 +1,12 @@
-Hello, here is a repository to send you my vision of clean architecture (firstly on the front, then later on back) in different versions.
+This is a template front end repository to use as base or inspiration for new development projects. It intents to follow clean architecture.
 
-For these examples, I chose to use [Next.js](https://nextjs.org/) based on [React](https://reactjs.org/), but the whole point of this architecture is to be able to use it independently of the frameworks and libraries used (external dependencies).
+For these examples, we chose to use our preferred [React](https://reactjs.org/) framework [Next.js](https://nextjs.org/), but the whole point of this architecture is to be able to use it independently of the frameworks and libraries used (external dependencies).
 
-In order to have a simple example, I chose a simple subject: a todo list!
+In order to have a basic example, we chose a simple subject: a todo list!
 
 To see the tasks that still need to be done on the project, go to the /docs/todo.md file
 
-If you have any questions, suggestions or anything else, don't hesitate to contact me!
-And if this repository has helped you, consider sharing it with your acquaintances.
+If you have any questions, suggestions or anything else, you can contact me @ alberto@webrtc.ventures!
 
 ## Summary
 
@@ -19,6 +18,18 @@ And if this repository has helped you, consider sharing it with your acquaintanc
     4. [Secondary port](#secondary-port)
     5. [Secondary adapter](#secondary-adapter)
 3. [Resources](#resources)
+
+## Background
+
+**Linting**
+We use this tool to analyze source code to flag programming errors, bugs, stylistic errors and suspicious constructs. We generally recommend following [airbnb](https://airbnb.io/javascript/) simplistic style guide.
+
+**Prettier**
+In the file .prettierrc we will define style related rules.
+Prettier does nothing to help with code-quality rules. They are also the most important ones provided by linters as they are likely to catch real bugs with your code!
+
+**Testing**
+In this example we are using jest...TBC
 
 ## Getting started
 
@@ -87,11 +98,7 @@ _Tips: you can use dependency injection for that, some state management librarie
 The second implementation of interfaces (ports) is called secondary adapters. They are called by the use cases. For example in front, these adapters can be the HTTP requests, the access to the data present in the local-storage, etc.
 
 ## Resources
-In english :
 - [Hexagonal architecture by Alistair Cockburn](https://alistair.cockburn.us/hexagonal-architecture/)
 
-In french :
-- [Slack de Wealcome](https://wealcome.slack.com/)
-- [La Clean Architecture : catalyseur de productivité](https://medium.com/@mickalwegerich/la-clean-architecture-catalyseur-de-productivit%C3%A9-68ff61aa38ff)
-- [Architecture Hexagonale : trois principes et un exemple d’implémentation](https://blog.octo.com/architecture-hexagonale-trois-principes-et-un-exemple-dimplementation/)
-- [Architecture Hexagonale : le guide pratique pour une clean architecture](https://beyondxscratch.com/fr/2018/09/11/architecture-hexagonale-le-guide-pratique-pour-une-clean-architecture/)
+## Credit
+Application was originally based on: https://github.com/dimitridumont/clean-architecture-front-end

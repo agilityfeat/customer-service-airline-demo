@@ -6,11 +6,10 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
+    "airbnb",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "next/core-web-vitals"
+    "next",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "settings": {
@@ -22,13 +21,16 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": 12,
+    "ecmaVersion": 2021,
     "sourceType": "module"
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "@typescript-eslint/ban-ts-comment": ["off"],
     "eslint-disable-next-line react/no-unescaped-entities":  ["off"],
-    "@typescript-eslint/no-explicit-any": ["off"]
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "import/prefer-default-export": ["off"],
+    "import/extensions": ["off"]
   }
 }
