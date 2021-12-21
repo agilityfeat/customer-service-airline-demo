@@ -1,3 +1,5 @@
+# WebRTC.ventures front end template
+
 This is a template front end repository to use as base or inspiration for new development projects. It intents to follow clean architecture.
 
 For these examples, we chose to use our preferred [React](https://reactjs.org/) framework [Next.js](https://nextjs.org/), but the whole point of this architecture is to be able to use it independently of the frameworks and libraries used (external dependencies).
@@ -22,13 +24,16 @@ If you have any questions, suggestions or anything else, you can contact me @ al
 ## Background
 
 **Linting**
+
 We use this tool to analyze source code to flag programming errors, bugs, stylistic errors and suspicious constructs. We generally recommend following [airbnb](https://airbnb.io/javascript/) simplistic style guide.
 
 **Prettier**
+
 In the file .prettierrc we will define style related rules.
 Prettier does nothing to help with code-quality rules. They are also the most important ones provided by linters as they are likely to catch real bugs with your code!
 
 **Testing**
+
 In this example we are using jest...TBC
 
 ## Getting started
@@ -64,7 +69,7 @@ jest
 --
 
 To test the app online:
-[https://clean-architecture-front-end.netlify.app](https://clean-architecture-front-end.netlify.app/)
+[https://webrtc-template.herokuapp.com](https://webrtc-template.herokuapp.com/)
 
 ## Clean architecture
 
