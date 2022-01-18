@@ -1,18 +1,10 @@
-# Title. Include the purpose of this Pull Request
-For example:
-```
-[JIRA#1231] This is a spike to explore…
-[JIRA#1232] This simplifies the display of…
-[JIRA#1233] This fixes handling of…
-```
-- Include the Jira ticket number (if applicable)
-- Be explicit about when you want feedback, if the Pull Request is work in progress, say so. A prefix of “[WIP]” in the title is a simple, common pattern to indicate that state
+# [JIRA-###](https://org.atlassian.net/browse/JIRA-###) 
+<Title. Purpose of the pull request>
 
 # Summary
-Summarize the changes that have been made
-- Consider providing an overview of why the work is taking place (with any relevant links); don’t assume familiarity with the project
-- Include screenshots if any
-
+- <Add summary points. Consider providing an overview of why the work is taking place (with any relevant links); don’t assume familiarity with the projec.>
+- 
+  
 # How to test?
 Describe the tests that you ran to verify your changes. Provide instructions so we can reproduce
 
