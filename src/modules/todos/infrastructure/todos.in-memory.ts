@@ -41,7 +41,7 @@ export class TodosInMemory implements TodosOutput {
 	    this.todos.push(todo);
 	  }
 
-	  const todos: Todo[] = this.mapToDomainModel(this.todos);
+	  const todos: Todo[] = TodosInMemory.mapToDomainModel(this.todos);
 
 	  return Promise.resolve(todos);
 	}
@@ -58,7 +58,7 @@ export class TodosInMemory implements TodosOutput {
 	        : todo)),
 	  ];
 
-	  const todos: Todo[] = this.mapToDomainModel(this.todos);
+	  const todos: Todo[] = TodosInMemory.mapToDomainModel(this.todos);
 
 	  return Promise.resolve(todos);
 	}
@@ -70,7 +70,7 @@ export class TodosInMemory implements TodosOutput {
 	    ...this.todos.filter((todo: TodoInfra) => todo.title !== todoTitle),
 	  ];
 
-	  const todos: Todo[] = this.mapToDomainModel(this.todos);
+	  const todos: Todo[] = TodosInMemory.mapToDomainModel(this.todos);
 
 	  return Promise.resolve(todos);
 	}
