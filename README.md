@@ -46,8 +46,6 @@ npm install
 yarn install
 ```
 
---
-
 Then run the development server:
 
 ```bash
@@ -68,7 +66,22 @@ jest
 
 --
 
-To test the app online:
+### Starting with Docker
+
+Go to the directory that has your Dockerfile and run the following command to build the Docker image. The -t flag lets you tag your image so it's easier to find later using the docker images command:
+
+```
+docker build . -t <your username>/frontend-template
+```
+
+Run the image you previously built:
+
+```
+docker run -p 3000:3000 -d <your username>/frontend-template
+```
+
+### To try the app online
+
 [https://webrtc-template.herokuapp.com](https://webrtc-template.herokuapp.com/)
 
 ## Clean architecture
