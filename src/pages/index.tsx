@@ -6,7 +6,7 @@ const Home: NextPage = function home () {
   return (
     <>
       <Head>
-        <title>WebRTC.ventures frontend example</title>
+        <title>{process.env.title || "WebRTC.ventures frontend example"}</title>
         <meta charSet="UTF-8" />
         <meta
           name="description"
