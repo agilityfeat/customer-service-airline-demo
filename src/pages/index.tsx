@@ -1,16 +1,16 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { TodoListContainer } from '@/modules/todos/application/todo-list/todo-list.container';
+import { Home } from '@/components/home/home';
 
-const Home: NextPage = function home () {
+const HomePage: NextPage = function home () {
   return (
     <>
       <Head>
-        <title>{process.env.title || "WebRTC.ventures frontend example"}</title>
+        <title>{process.env.title || "WebRTC.ventures airline customer care"}</title>
         <meta charSet="UTF-8" />
         <meta
           name="description"
-          content="WebRTC.ventures frontend example"
+          content="WebRTC.ventures airline customer care"
         />
         <meta
           name="viewport"
@@ -18,10 +18,9 @@ const Home: NextPage = function home () {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <TodoListContainer />
+      <Home/>
     </>
   );
 };
 
-export default Home;
+export default HomePage;
