@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 60px;
+    height: 40px;
+}
+
+.link {
+    height: 34px;
+    color: gray;
+    transition: all 250ms cubic-bezier(0.165, 0.84, 0.44, 1);
+    &:hover {
+      color: #23355B;
+      background: gray;
+    }
+}
