@@ -1,0 +1,56 @@
+.container {
+    background-color: gray;
+    height: 100vh;
+    display: flex;
+}
+
+.videos {
+    position: relative;
+    width: 70%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.subscriber {
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+.publisher {
+    position: absolute;
+    width: 360px;
+    height: 240px;
+    bottom: 10px;
+    left: 10px;
+    z-index: 100;
+    border: 3px solid white;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.analytics {
+    width: 30%;
+    border-left: 0.3px solid #f1f1f1;
+}
+
+.heading {
+    color: white;
+    text-align: center;
+}
+
+.sentimentContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.callActions {
+    z-index: 10;
+    position: absolute;
+    bottom: 10px;
+    padding-left: 250px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
