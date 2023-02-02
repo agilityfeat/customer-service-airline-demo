@@ -12,16 +12,22 @@ const ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUV
 const SYMBL_SOCKET_URL = `wss://api.symbl.ai/v1/streaming/${SESSION_ID}?access_token=${ACCESS_TOKEN}`;
 const AGENT_USER_ID = 'fahad.mahmoood@agilityfeat.com';
 
-
 export const AgentCallRoom = function AgentCallRoom() {
     const [isStreamSubscribed, setIsStreamSubscribed] = useState(false);
     const [agentSentiment, setAgentSentiment] = useState(0.0);
     const [customerSentiment, setCustomerSentiment] = useState(0.0);
     const [conversationId, setConversationId] = useState();
+    const [customerQuestionInsights, setCustomerQuestionInsights] = useState<string[]>([]);
+    const questionInsightsRef = useRef<string[]>([]);
     const symblSocketRef = useRef<undefined | WebSocket>();
     const otSessionRef = useRef<any>();
     const router = useRouter();
-    
+      
+
+    const addCustomerQuestionInsight = (question: string) => {
+      questionInsightsRef.current = [...questionInsightsRef.current, question];
+      setCustomerQuestionInsights(questionInsightsRef.current);
+    }
 
     const setSymblListeners = (symblSocket: WebSocket) => {
      symblSocket.onopen = () => {
@@ -82,6 +88,9 @@ export const AgentCallRoom = function AgentCallRoom() {
           console.log('insight response');
           console.log(data);
           for (let insight of data.insights) {
+            if(insight.from.userId !== AGENT_USER_ID && insight.type === 'question') {
+              addCustomerQuestionInsight(insight.payload.content);
+            }
             console.log('Insight detected: ', insight.payload.content);
           }
         }
@@ -201,6 +210,6 @@ export const AgentCallRoom = function AgentCallRoom() {
   
   return (
 
-<AgentCallRoomView onDisconnect={onDisconnect} agentSentiment={agentSentiment} customerSentiment={customerSentiment}/>
+<AgentCallRoomView customerQuestionInsights={customerQuestionInsights} onDisconnect={onDisconnect} agentSentiment={agentSentiment} customerSentiment={customerSentiment}/>
   );
 };

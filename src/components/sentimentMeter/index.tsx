@@ -11,8 +11,8 @@ export const SentimentMeter = function SentimentMeter({title = 'Agent Sentiment'
         currentValueText={title}
         minValue={-1.0}
         maxValue={1.0}
-        height={250}
-        width={250}
+        height={200}
+        width={200}
         segments={3}
         ringWidth={30}
         textColor='#f1f1f1'
