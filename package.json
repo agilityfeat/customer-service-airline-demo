@@ -1,5 +1,5 @@
 {
-  "name": "front-template",
+  "name": "air-webrtc",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:5000",
@@ -12,13 +12,24 @@
     "test": "jest"
   },
   "dependencies": {
+    "@opentok/client": "^2.24.5",
+    "@symblai/symbl-js": "^1.4.8",
+    "@vonage/screen-share": "^0.0.2",
+    "@vonage/server-sdk": "^3.0.18",
+    "@vonage/video-publisher": "^0.0.3",
+    "@vonage/video-subscribers": "^0.0.3",
+    "axios": "^1.2.6",
     "next": "^13.0.6",
+    "opentok": "^2.15.2",
     "react": "^18.2.0",
+    "react-d3-speedometer": "^1.1.0",
     "react-dom": "^18.2.0",
+    "react-toastify": "^9.1.1",
     "sass": "^1.43.2"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",
+    "@types/opentok": "^2.13.1",
     "@types/react": "17.0.30",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "eslint": "8.2.0",
