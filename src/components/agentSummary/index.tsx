@@ -17,12 +17,10 @@ const AgentSummary = function Home() {
   const [message, setMessage] = useState('');
   const [summary, setSummary] = useState('');
   const router = useRouter();
-  const {conversationId} = router.query;
+  const { conversationId } = router.query as { conversationId: string };
 
-
-
-  const fetchSummary = async (conversationId) => {
-    const {data} = await axios.get(`${BASE_URI}/conversations/${conversationId}/summary`, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
+  const fetchSummary = async (convId: string) => {
+    const {data} = await axios.get(`${BASE_URI}/conversations/${convId}/summary`, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
     setSummary(data.summary[0].text);
   };
 
@@ -30,7 +28,6 @@ const AgentSummary = function Home() {
     if(conversationId) {
         fetchSummary(conversationId)
     }
-    
   }, [conversationId]);
 
   const onSendSMS = async () => {
