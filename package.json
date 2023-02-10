@@ -30,7 +30,8 @@
     "react-dom": "^18.2.0",
     "react-scroll-to-bottom": "^4.2.0",
     "react-toastify": "^9.1.1",
-    "sass": "^1.43.2"
+    "sass": "^1.43.2",
+    "swr": "^2.0.3"
   },
   "devDependencies": {
     "@types/jest": "^27.0.2",

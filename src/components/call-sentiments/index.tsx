@@ -3,16 +3,15 @@ import Avatar from 'react-avatar';
 import ScrollToBottom from 'react-scroll-to-bottom';
 import styles from './index.module.scss';
 
-
-
 const TITLE = 'Chat Transcript';
 
 interface Props {
     symblMessages: any[];
+    isLoading?: boolean;
 }
 
 const CallSentiments = function CallSentiments(props: Props) {
-  const { symblMessages } = props;
+  const { symblMessages, isLoading } = props;
   
   const displaySentiment = (sentiment: string) => {
     if(sentiment === 'negative') {
@@ -47,6 +46,9 @@ const CallSentiments = function CallSentiments(props: Props) {
     return <div></div>;
   }
   const getCallSentiments = () => {
+    if(isLoading) {
+      return <p className={styles.text}>Fetching...</p>
+    }
     if(symblMessages.length === 0) {
       return <p className={styles.text}>No Transcript Available!</p>
     }

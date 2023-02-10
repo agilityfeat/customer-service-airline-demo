@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import useSWR from 'swr';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
@@ -13,29 +14,21 @@ import { QuestionInsights } from '../questionInsights';
 import { CallSentiments } from '../call-sentiments';
 import styles from './index.module.scss';
 
-
-
-
-
-
 const TITLE1 = 'Audio Tracks';
 const TITLE2 = 'Send text message to customer';
 const MESSAGE_PLACEHOLDER = 'Type Message For Customer';
 const AGENT_USER_ID = 'fahad.mahmoood@agilityfeat.com';
+const AXIOS_OPTIONS = {headers: {'Authorization': `Bearer ${symblConfig.ACCESS_TOKEN}`}};
+
+const fetcher = (url: string) => axios.get(url, AXIOS_OPTIONS).then(res => res.data)
+
 
 const AgentSummary = function Home() {
   const [message, setMessage] = useState('');
-  const [questions, setCustomerQuestionInsights] = useState([]);
-  const [symblMessages, setSymblMessages] = useState([]);
   const router = useRouter();
   const { conversationId } = router.query as { conversationId: string };
-
-  const fetchQuestionInsights = async () => {
-      const {data} = await axios.get(`${symblConfig.BASE_URI}/conversations/${conversationId}/questions`, {headers: {'Authorization': `Bearer ${symblConfig.ACCESS_TOKEN}`}});
-      if(data?.questions) {
-        setCustomerQuestionInsights(data?.questions);
-      }
-  }
+  const { data: questionsData, isLoading: questionsLoading } = useSWR(conversationId ? `${symblConfig.BASE_URI}/conversations/${conversationId}/questions` : null, fetcher)
+  const { data: messagesData, isLoading: messageResponsesLoading } = useSWR(conversationId ? `${symblConfig.BASE_URI}/conversations/${conversationId}/messages?sentiment=true` : null, fetcher)
 
 
   const getMessageAuthor = (userId: string) => {
@@ -43,24 +36,17 @@ const AgentSummary = function Home() {
     return 'Customer';
   }
 
-  const fetchMessageResponses= async () => {
-    const {data} = await axios.get(`${symblConfig.BASE_URI}/conversations/${conversationId}/messages?sentiment=true`, {headers: {'Authorization': `Bearer ${symblConfig.ACCESS_TOKEN}`}});
+const symblMessages =  useMemo(() => {
+  if(messagesData && messagesData.messages) {
+    const newMessageResponses= messagesData?.messages.map((messageResponse: any) =>{
+      const messageObject =  {id: messageResponse?.id, transcript: messageResponse?.text, sentiment: messageResponse?.sentiment?.suggested, from: getMessageAuthor(messageResponse.from.id), time: format(new Date(messageResponse?.endTime), 'h:mm aaa')};
+      return messageObject;
+      });
+      return newMessageResponses;
+  }
+  return [];
 
-    if(data?.messages) {
-      const newMessageResponses= data.messages.map((messageResponse: any) =>{
-        const messageObject =  {id: messageResponse?.id, transcript: messageResponse?.text, sentiment: messageResponse?.sentiment?.suggested, from: getMessageAuthor(messageResponse.from.id), time: format(new Date(messageResponse?.endTime), 'h:mm aaa')};
-        return messageObject;
-        });
-        setSymblMessages(newMessageResponses);
-    }
-}
-
-  useEffect(() => {
-    if(conversationId) {
-        fetchQuestionInsights();
-        fetchMessageResponses();
-    }
-  }, [conversationId]);
+}, [messagesData]);
 
   const onSendSMS = async () => {
     if(message.trim().length === 0) {
@@ -137,8 +123,8 @@ const AgentSummary = function Home() {
       </div>
       </div>
       <div className={styles.secondSection}>
-        <QuestionInsights customerQuestionInsights={questions} />
-        <CallSentiments symblMessages={symblMessages} />
+        <QuestionInsights customerQuestionInsights={questionsData?.questions ?? []}  isLoading={questionsLoading}/>
+        <CallSentiments symblMessages={symblMessages} isLoading={messageResponsesLoading} />
       </div>
     </div>
     </Main>
