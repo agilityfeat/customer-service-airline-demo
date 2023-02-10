@@ -5,6 +5,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { PrimaryButton } from '@/components/buttons/primary';
+import { symblConfig } from '@/config/symbl';
 import { Header } from '../header';
 import { Main } from '../main';
 import { QuestionInsights } from '../questionInsights';
@@ -14,8 +15,7 @@ import styles from './index.module.scss';
 
 
 
-const ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjYwNTQzODg5Mzk4ODI0OTYiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiVnl4TjhucXNjcHVodXpOVGhtZ2ZjT0NvS1Y4NlBYR2hAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjc1OTUyNTAzLCJleHAiOjE2NzYwMzg5MDMsImF6cCI6IlZ5eE44bnFzY3B1aHV6TlRobWdmY09Db0tWODZQWEdoIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.Tvo0273gpMCLW36KoTwUJCWeuWiZqe1WyokLfFKKk9n5-q2aahDyNyHBIdg8MqwRqG--hKqVS9JW3QIKDN-zWdtVkP3FgCP7vyl7n-wNCN4xcxFwPSHgFDUnJaAkMwKQpOeL7Ds5o1uFES5-koyrJj4pDJ0f99zsM5O4ynOatA8GKDnuV0Av9A5ZuzJ8hx0iSkn5I3WMnmSrdgjXeFnVDDtYOmKiBw115u99ZhARbk7mDqlAW1YwP-Kx0vYBOXciwlA0k1sOAJLIkuId41Hs9oMy9bjnMcXF1YbaWco4ZqRk9bDwkhGv8ETY8dulyiEWO5jWqaYo62bO5zgVpzFfwg';
-const BASE_URI = 'https://api.symbl.ai/v1';
+
 
 
 const TITLE1 = 'Audio Tracks';
@@ -25,14 +25,13 @@ const AGENT_USER_ID = 'fahad.mahmoood@agilityfeat.com';
 
 const AgentSummary = function Home() {
   const [message, setMessage] = useState('');
-  const [summary, setSummary] = useState('');
   const [questions, setCustomerQuestionInsights] = useState([]);
   const [symblMessages, setSymblMessages] = useState([]);
   const router = useRouter();
   const { conversationId } = router.query as { conversationId: string };
 
   const fetchQuestionInsights = async () => {
-      const {data} = await axios.get(`${BASE_URI}/conversations/${conversationId}/questions`, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
+      const {data} = await axios.get(`${symblConfig.BASE_URI}/conversations/${conversationId}/questions`, {headers: {'Authorization': `Bearer ${symblConfig.ACCESS_TOKEN}`}});
       if(data?.questions) {
         setCustomerQuestionInsights(data?.questions);
       }
@@ -45,7 +44,7 @@ const AgentSummary = function Home() {
   }
 
   const fetchMessageResponses= async () => {
-    const {data} = await axios.get(`${BASE_URI}/conversations/${conversationId}/messages?sentiment=true`, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
+    const {data} = await axios.get(`${symblConfig.ACCESS_TOKEN}/conversations/${conversationId}/messages?sentiment=true`, {headers: {'Authorization': `Bearer ${symblConfig.ACCESS_TOKEN}`}});
 
     if(data?.messages) {
       const newMessageResponses= data.messages.map((messageResponse: any) =>{
@@ -55,14 +54,9 @@ const AgentSummary = function Home() {
         setSymblMessages(newMessageResponses);
     }
 }
-  const fetchSummary = async () => {
-    const {data} = await axios.get(`${BASE_URI}/conversations/${conversationId}/summary`, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
-    setSummary(data.summary[0].text);
-  };
 
   useEffect(() => {
     if(conversationId) {
-        fetchSummary()
         fetchQuestionInsights();
         fetchMessageResponses();
     }

@@ -1,5 +1,7 @@
 import { CallEndButton } from '@/components/buttons/call-end';
 import React from 'react';
+import { Header } from '@/components/header';
+import { Main } from '@/components/main';
 import styles from './call-room.module.scss';
 
 
@@ -9,6 +11,9 @@ interface Props {
 const CallRoomView = function CalCallRoomViewlRoom(props : Props) {
   const {onDisconnect} = props;
   return (
+    <>
+    <Header/>
+    <Main>
     <div className={styles.container}>
     <div className={styles.videos} id="videos">
       <div className={styles.subscriber} id="subscriber"/>
@@ -19,7 +24,9 @@ const CallRoomView = function CalCallRoomViewlRoom(props : Props) {
     </div>
    
   </div>
-      
+    </Main>
+
+      </>
   );
 };
 

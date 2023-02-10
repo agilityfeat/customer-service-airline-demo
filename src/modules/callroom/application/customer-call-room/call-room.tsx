@@ -4,13 +4,11 @@ import React, { useEffect, useRef } from 'react';
 import { useRouter } from 'next/router';
 import {toast} from 'react-toastify';
 import { opentokConfig } from '@/config/opentok';
+import { symblConfig } from '@/config/symbl';
 import { CallRoomView } from './call-room.view';
 
 
-
-const SESSION_ID = 'airwebrtc12345';
-const ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjYwNTQzODg5Mzk4ODI0OTYiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiVnl4TjhucXNjcHVodXpOVGhtZ2ZjT0NvS1Y4NlBYR2hAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjc1MjY1NTk4LCJleHAiOjE2NzUzNTE5OTgsImF6cCI6IlZ5eE44bnFzY3B1aHV6TlRobWdmY09Db0tWODZQWEdoIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.1oq65ohJ4PlkmOQrOdJ0gjEgC0v3NyHCLdxtcu0uWk2TAYIxGuEXTg7FJzDRYMsGfs-_wHVg32A53YGUgjTLFnKOz-BXetDPa1fPB-3UZ8GD85sLifUzz1GVSMfKO0SdR8frXp-r5-GvAHV--WdpzcAMBrosbjYDS-N7C5XfCIeYwxRzEeO08QTk1ssOmPLKve_iSaY9NRnjOZTiV_oe7diYxT1QITSkH_rU-5f-yOS_0x8S9XK2H1mbyY6llqYIXfjkt_HptIaTcq8auVShZtJomUava8lY4DaU88MFk-Gks7wKY3rqdNKD_EYHw5timkwcDrin6ci-CnBG3Gw6DA';
-const SYMBL_SOCKET_URL = `wss://api.symbl.ai/v1/streaming/${SESSION_ID}?access_token=${ACCESS_TOKEN}`;
+const SYMBL_SOCKET_URL = `wss://api.symbl.ai/v1/streaming/${symblConfig.SESSION_ID}?access_token=${symblConfig.ACCESS_TOKEN}`;
 
 
 export const CallRoom = function CallRoom() {

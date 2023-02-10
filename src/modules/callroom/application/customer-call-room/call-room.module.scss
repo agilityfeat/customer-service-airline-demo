@@ -1,6 +1,5 @@
 .container {
-    background-color: gray;
-    height: 100vh;
+    height: 100%;
 }
 
 .videos {
@@ -23,7 +22,6 @@
     bottom: 10px;
     left: 10px;
     z-index: 11;
-    border: 3px solid white;
     overflow: hidden;
     border-radius: 3px;
 }

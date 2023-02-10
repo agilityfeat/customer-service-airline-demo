@@ -5,14 +5,14 @@ import {toast} from 'react-toastify';
 import { format } from 'date-fns';
 import type OT from '@opentok/client';
 import { unionBy } from 'lodash';
+import {useScrollToBottom} from 'react-scroll-to-bottom';
 import { opentokConfig } from '@/config/opentok';
+import { symblConfig } from '@/config/symbl';
 import { AgentCallRoomView } from './agent-call-room.view';
 
 
 const LIVE_MESSAGE = {id: '12345', transcript: '', sentiment: 'none', isLive: true, from: 'Agent'};
-const SESSION_ID = 'airwebrtc12345';
-const ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjYwNTQzODg5Mzk4ODI0OTYiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiVnl4TjhucXNjcHVodXpOVGhtZ2ZjT0NvS1Y4NlBYR2hAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjc1OTUyNTAzLCJleHAiOjE2NzYwMzg5MDMsImF6cCI6IlZ5eE44bnFzY3B1aHV6TlRobWdmY09Db0tWODZQWEdoIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.Tvo0273gpMCLW36KoTwUJCWeuWiZqe1WyokLfFKKk9n5-q2aahDyNyHBIdg8MqwRqG--hKqVS9JW3QIKDN-zWdtVkP3FgCP7vyl7n-wNCN4xcxFwPSHgFDUnJaAkMwKQpOeL7Ds5o1uFES5-koyrJj4pDJ0f99zsM5O4ynOatA8GKDnuV0Av9A5ZuzJ8hx0iSkn5I3WMnmSrdgjXeFnVDDtYOmKiBw115u99ZhARbk7mDqlAW1YwP-Kx0vYBOXciwlA0k1sOAJLIkuId41Hs9oMy9bjnMcXF1YbaWco4ZqRk9bDwkhGv8ETY8dulyiEWO5jWqaYo62bO5zgVpzFfwg';
-const SYMBL_SOCKET_URL = `wss://api.symbl.ai/v1/streaming/${SESSION_ID}?access_token=${ACCESS_TOKEN}`;
+const SYMBL_SOCKET_URL = `wss://api.symbl.ai/v1/streaming/${symblConfig.SESSION_ID}?access_token=${symblConfig.ACCESS_TOKEN}`;
 const AGENT_USER_ID = 'fahad.mahmoood@agilityfeat.com';
 
 export const AgentCallRoom = function AgentCallRoom() {
@@ -25,6 +25,8 @@ export const AgentCallRoom = function AgentCallRoom() {
     const otSessionRef = useRef<any>();
     const symblMessageRef = useRef<any>([]);
     const router = useRouter();
+    const scrollToBottom = useScrollToBottom();
+
       
 
     const addCustomerQuestionInsight = (question: string) => {
@@ -52,6 +54,7 @@ export const AgentCallRoom = function AgentCallRoom() {
       const messageResponsesWithoutLive = symblMessageRef.current.filter((item: any) => item.id !== '12345');
       symblMessageRef.current =  [...messageResponsesWithoutLive, liveMessageObject];
       setSymblMessages(symblMessageRef.current);
+      scrollToBottom();
     }
 
     const setSymblListeners = (symblSocket: WebSocket) => {
