@@ -1,0 +1,29 @@
+.container {
+    width: 40%;
+}
+.heading {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.chatContainer {
+    margin: 0 20px;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.infoSection {
+    display: flex;
+}
+
+.infoSectionItem {
+    margin-right: 50px;
+}
+
+.flightText {
+    color: #7CB356;
+}
