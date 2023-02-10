@@ -44,7 +44,7 @@ const AgentSummary = function Home() {
   }
 
   const fetchMessageResponses= async () => {
-    const {data} = await axios.get(`${symblConfig.ACCESS_TOKEN}/conversations/${conversationId}/messages?sentiment=true`, {headers: {'Authorization': `Bearer ${symblConfig.ACCESS_TOKEN}`}});
+    const {data} = await axios.get(`${symblConfig.BASE_URI}/conversations/${conversationId}/messages?sentiment=true`, {headers: {'Authorization': `Bearer ${symblConfig.ACCESS_TOKEN}`}});
 
     if(data?.messages) {
       const newMessageResponses= data.messages.map((messageResponse: any) =>{
