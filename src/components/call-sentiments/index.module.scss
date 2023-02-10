@@ -1,0 +1,37 @@
+.container {
+    background-color: #fff;
+    width: 495px;
+    height: 334px;
+    overflow-y: auto;
+    margin: 20px 20px;
+    padding: 0px 20px;
+
+  }
+  
+  .heading {
+    font-size: 24px;
+  }
+  
+  .firstSection {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .secondSection {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .sentimentContainer {
+    display: flex;
+  }
+
+  .sentiment {
+    margin-right: 10px;
+  }
+  .text {
+      font-size: 16px;
+  }

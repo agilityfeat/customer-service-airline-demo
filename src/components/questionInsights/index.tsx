@@ -5,7 +5,7 @@ import styles from './index.module.scss';
 const TITLE = 'Customer Queries';
 
 interface Props {
-  customerQuestionInsights: string[];
+  customerQuestionInsights: any[];
 }
 
 const QuestionInsights = function QuestionInsights(props: Props) {
@@ -15,7 +15,7 @@ const QuestionInsights = function QuestionInsights(props: Props) {
     if(customerQuestionInsights.length === 0) {
       return <p className={styles.text}>No Queries Available!</p>
     }
-    return customerQuestionInsights.map((question: string, index) => (<p className={styles.text} key={index+question}>{`${index+1}: ${question}`}</p>));
+    return customerQuestionInsights.map((question: any, index) => (<p className={styles.text} key={question?.id}>{`${index+1}: ${question?.text}`}</p>));
   }
 
   return (
