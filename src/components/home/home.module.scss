@@ -1,9 +1,8 @@
 .main {
-    height: 100vh;
     width: 100vw;
 }
 .container {
-    height: calc(100vh - 40px);
+    height: calc(100vh - 120px);
     width: 100vw;
     display: flex;
     flex-direction: column;
