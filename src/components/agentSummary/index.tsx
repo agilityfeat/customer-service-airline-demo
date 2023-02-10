@@ -29,8 +29,7 @@ const AgentSummary = function Home() {
   const [questions, setCustomerQuestionInsights] = useState([]);
   const [symblMessages, setSymblMessages] = useState([]);
   const router = useRouter();
-  const {conversationId} = router.query;
-
+  const { conversationId } = router.query as { conversationId: string };
 
   const fetchQuestionInsights = async () => {
       const {data} = await axios.get(`${BASE_URI}/conversations/${conversationId}/questions`, {headers: {'Authorization': `Bearer ${ACCESS_TOKEN}`}});
@@ -67,7 +66,6 @@ const AgentSummary = function Home() {
         fetchQuestionInsights();
         fetchMessageResponses();
     }
-    
   }, [conversationId]);
 
   const onSendSMS = async () => {
