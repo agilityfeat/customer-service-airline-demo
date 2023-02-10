@@ -1,0 +1,11 @@
+.container {
+    height: calc(100vh - 90px);
+    width: 100vw;
+    background-color: #F4F9E5;
+    overflow-y: auto;
+}
+
+.background-image-container {
+    background-image: url("http://localhost:3000/assets/background.svg");
+    mix-blend-mode: soft-light;
+}
