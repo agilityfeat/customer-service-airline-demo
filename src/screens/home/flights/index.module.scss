@@ -1,0 +1,27 @@
+.container {
+    width: 60%;
+    box-sizing: border-box;
+    padding-left: 80px;
+}
+.heading {
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.flightContainer {
+    margin: 0 20px;
+}
+
+.listItem {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.item {
+    width: 33%;
+}
+
+.secondaryText {
+    color: #7CB356;
+}

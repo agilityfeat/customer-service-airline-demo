@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { PrimaryButton } from '@/components/buttons/primary';
-import { Nav } from '../nav/nav';
+import { Header } from '../header';
 import styles from './home.module.scss';
 
 
@@ -15,7 +15,7 @@ const Home = function Home() {
   }
   return (
     <div className={styles.main}>
-        <Nav />
+        <Header />
     <div className={styles.container}>
         <h1 className={styles.heading}>{TITLE}</h1>
         <section className={styles.section}>
