@@ -6,11 +6,11 @@ import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { PrimaryButton } from '@/components/buttons/primary';
 import { symblConfig } from '@/config/symbl';
+import classNames from 'classnames';
 import { Header } from '../header';
 import { Main } from '../main';
 import { QuestionInsights } from '../questionInsights';
 import { CallSentiments } from '../call-sentiments';
-
 import styles from './index.module.scss';
 
 
@@ -91,10 +91,44 @@ const AgentSummary = function Home() {
        <div>
         <p className={styles.graphText}>Agent</p>
         <Image height={60} width={600} alt='audio track' src='/assets/track1.svg' />
+        <div className={styles.avatarContainer1}>
+          <div>
+            <div className={classNames(styles.dot, styles.neutral)}/>
+            <div className={classNames(styles.dot, styles.neutral)}/>
+          </div>
+          <div className={styles.middleAvatar1}>
+          <div className={classNames(styles.dot, styles.positive)}/>
+          <div className={classNames(styles.dot, styles.positive)}/>
+          <div className={classNames(styles.dot, styles.positive)}/>
+          </div>
+          <div>
+          <div className={classNames(styles.dot, styles.neutral)}/>
+            <div className={classNames(styles.dot, styles.neutral)}/>
+          </div>
+        </div>
        </div>
        <div>
         <p className={styles.graphText}>Customer</p>
-        <Image height={60} width={600} alt='audio track' src='/assets/track1.svg' />
+        <Image height={60} width={600} alt='audio track' src='/assets/track2.svg' />
+        <div className={styles.avatarContainer1}>
+          <div>
+            <div className={classNames(styles.dot, styles.negative)}/>
+            <div className={classNames(styles.dot, styles.negative)}/>
+            <div className={classNames(styles.dot, styles.negative)}/>
+            <div className={classNames(styles.dot, styles.negative)}/>
+            <div className={classNames(styles.dot, styles.negative)}/>
+            <div className={classNames(styles.dot, styles.negative)}/>
+          </div>
+          <div className={styles.middleAvatar2}>
+          <div className={classNames(styles.dot, styles.negative)}/>
+            <div className={classNames(styles.dot, styles.negative)}/>
+            <div className={classNames(styles.dot, styles.neutral)}/>
+            <div className={classNames(styles.dot, styles.neutral)}/>
+          </div>
+          <div>
+          <div className={classNames(styles.dot, styles.positive)}/>
+          </div>
+        </div>
        </div>
        <h3 className={styles.heading}>{TITLE2}</h3>
        <div className={styles.messageContainer}>

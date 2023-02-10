@@ -41,7 +41,7 @@
     margin-top: 10px;
     margin-right: 20px;
     width: 700px;
-    height: 200px;
+    height: 180px;
     resize: none;
     color: #555555;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -57,3 +57,40 @@
       outline-width: 0;
   }
   
+
+  .avatarContainer1 {
+    display:flex;
+    justify-content: space-around;
+    width: 600px;
+    padding: 0px 40px;
+  }
+
+  .avatar {
+    margin: 0px 2px;
+  }
+
+  .middleAvatar1 {
+    margin-right: 120px;
+  }
+
+  .middleAvatar2 {
+    margin-left: 40px;
+  }
+    .dot {
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 0px 2px;
+      }
+
+      .neutral {
+        background-color: #DCC816;
+      }
+      
+      .positive {
+        background-color: green;
+      }
+      .negative {
+        background-color: #CD0411;
+      }
