@@ -1,22 +1,24 @@
 import React from 'react';
-import { SentimentMeter } from '@/components/sentimentMeter';
+import { Header } from '@/components/header';
+import { Main } from '@/components/main';
+import { CallSentiments } from '@/components/call-sentiments';
 import { QuestionInsights } from '@/components/questionInsights';
 import { CallEndButton } from '@/components/buttons/call-end';
 import styles from './agent-call-room.module.scss';
 
 
 interface Props {
-  agentSentiment: number;
-  customerSentiment: number;
   customerQuestionInsights: string[];
   onDisconnect: () => void;
+  symblMessages: any;
 }
 
-const CUSTOMER_SENTIMENT_TITLE = 'Customer Sentiment';
-
 export const AgentCallRoomView = function CalCallRoomViewlRoom(props: Props) {
-  const { agentSentiment, customerSentiment, onDisconnect, customerQuestionInsights} = props;
-  return (
+  const { onDisconnect, customerQuestionInsights, symblMessages } = props;
+  return (<>
+
+    <Header/>
+    <Main>
     <div className={styles.container}>
     <div className={styles.videos} id="videos">
       <div className={styles.subscriber} id="subscriber"/>
@@ -26,14 +28,12 @@ export const AgentCallRoomView = function CalCallRoomViewlRoom(props: Props) {
     </div>
     </div>
     <div className={styles.analytics}>
-    <h2 className={styles.heading}>Symentic Analysis</h2>
-    <div className={styles.sentimentContainer}>
-      <SentimentMeter value={agentSentiment}/>
-      <SentimentMeter title={CUSTOMER_SENTIMENT_TITLE} value={customerSentiment}/>
-    </div>
     <QuestionInsights customerQuestionInsights={customerQuestionInsights} />
+    <CallSentiments  symblMessages={symblMessages}/>
     </div>
   </div>
-      
+    </Main>
+    
+  </>
   );
 };

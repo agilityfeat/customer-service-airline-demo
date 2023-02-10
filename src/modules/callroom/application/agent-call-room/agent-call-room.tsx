@@ -2,31 +2,56 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import {toast} from 'react-toastify';
+import { format } from 'date-fns';
 import type OT from '@opentok/client';
+import { unionBy } from 'lodash';
 import { opentokConfig } from '@/config/opentok';
 import { AgentCallRoomView } from './agent-call-room.view';
 
 
+const LIVE_MESSAGE = {id: '12345', transcript: '', sentiment: 'none', isLive: true, from: 'Agent'};
 const SESSION_ID = 'airwebrtc12345';
-const ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjYwNTQzODg5Mzk4ODI0OTYiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiVnl4TjhucXNjcHVodXpOVGhtZ2ZjT0NvS1Y4NlBYR2hAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjc1MjY1NTk4LCJleHAiOjE2NzUzNTE5OTgsImF6cCI6IlZ5eE44bnFzY3B1aHV6TlRobWdmY09Db0tWODZQWEdoIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.1oq65ohJ4PlkmOQrOdJ0gjEgC0v3NyHCLdxtcu0uWk2TAYIxGuEXTg7FJzDRYMsGfs-_wHVg32A53YGUgjTLFnKOz-BXetDPa1fPB-3UZ8GD85sLifUzz1GVSMfKO0SdR8frXp-r5-GvAHV--WdpzcAMBrosbjYDS-N7C5XfCIeYwxRzEeO08QTk1ssOmPLKve_iSaY9NRnjOZTiV_oe7diYxT1QITSkH_rU-5f-yOS_0x8S9XK2H1mbyY6llqYIXfjkt_HptIaTcq8auVShZtJomUava8lY4DaU88MFk-Gks7wKY3rqdNKD_EYHw5timkwcDrin6ci-CnBG3Gw6DA';
+const ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjYwNTQzODg5Mzk4ODI0OTYiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiVnl4TjhucXNjcHVodXpOVGhtZ2ZjT0NvS1Y4NlBYR2hAY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjc1OTUyNTAzLCJleHAiOjE2NzYwMzg5MDMsImF6cCI6IlZ5eE44bnFzY3B1aHV6TlRobWdmY09Db0tWODZQWEdoIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.Tvo0273gpMCLW36KoTwUJCWeuWiZqe1WyokLfFKKk9n5-q2aahDyNyHBIdg8MqwRqG--hKqVS9JW3QIKDN-zWdtVkP3FgCP7vyl7n-wNCN4xcxFwPSHgFDUnJaAkMwKQpOeL7Ds5o1uFES5-koyrJj4pDJ0f99zsM5O4ynOatA8GKDnuV0Av9A5ZuzJ8hx0iSkn5I3WMnmSrdgjXeFnVDDtYOmKiBw115u99ZhARbk7mDqlAW1YwP-Kx0vYBOXciwlA0k1sOAJLIkuId41Hs9oMy9bjnMcXF1YbaWco4ZqRk9bDwkhGv8ETY8dulyiEWO5jWqaYo62bO5zgVpzFfwg';
 const SYMBL_SOCKET_URL = `wss://api.symbl.ai/v1/streaming/${SESSION_ID}?access_token=${ACCESS_TOKEN}`;
 const AGENT_USER_ID = 'fahad.mahmoood@agilityfeat.com';
 
 export const AgentCallRoom = function AgentCallRoom() {
     const [isStreamSubscribed, setIsStreamSubscribed] = useState(false);
-    const [agentSentiment, setAgentSentiment] = useState(0.0);
-    const [customerSentiment, setCustomerSentiment] = useState(0.0);
     const [conversationId, setConversationId] = useState();
+    const [symblMessages, setSymblMessages] = useState([]);
     const [customerQuestionInsights, setCustomerQuestionInsights] = useState<string[]>([]);
     const questionInsightsRef = useRef<string[]>([]);
     const symblSocketRef = useRef<undefined | WebSocket>();
     const otSessionRef = useRef<any>();
+    const symblMessageRef = useRef<any>([]);
     const router = useRouter();
       
 
     const addCustomerQuestionInsight = (question: string) => {
       questionInsightsRef.current = [...questionInsightsRef.current, question];
       setCustomerQuestionInsights(questionInsightsRef.current);
+    }
+
+    const getMessageAuthor = (userId) => {
+      if(userId === AGENT_USER_ID) return 'Agent';
+      return 'Customer';
+    }
+    const setSymblMessageResponse = (messages: any) => {
+      const newMessageResponses= messages.map((message: any) =>{
+          const messageObject =  {id: message?.id, transcript: message?.payload?.content, sentiment: message?.sentiment?.suggested, from: getMessageAuthor(message.from.userId), time: format(new Date(message?.duration?.endTime), 'h:mm aaa')};
+          return messageObject;
+          });
+          const messageResponsesWithoutLive = symblMessageRef.current.filter((item: any) => item.id !== '12345');
+          const uniqueMessageResponses = unionBy(messageResponsesWithoutLive, newMessageResponses, (item) => item.id);
+          symblMessageRef.current = [...uniqueMessageResponses, {...LIVE_MESSAGE, time: format(new Date(), 'h:mm aaa')}];
+          setSymblMessages(symblMessageRef.current);
+    }
+
+    const setLiveTranscript = (message: any) => {
+       const liveMessageObject = {...LIVE_MESSAGE, time: format(new Date(), 'h:mm aaa'), transcript: message?.punctuated.transcript, from: getMessageAuthor(message?.user?.email) };
+      const messageResponsesWithoutLive = symblMessageRef.current.filter((item: any) => item.id !== '12345');
+      symblMessageRef.current =  [...messageResponsesWithoutLive, liveMessageObject];
+      setSymblMessages(symblMessageRef.current);
     }
 
     const setSymblListeners = (symblSocket: WebSocket) => {
@@ -69,25 +94,22 @@ export const AgentCallRoom = function AgentCallRoom() {
           setConversationId(data.message.data.conversationId);
         }
         if (data.type === 'message_response') {
-          data.messages.forEach((message: any) => {
-            console.log(message.sentiment.polarity.score)
-            if(message.from.userId !== AGENT_USER_ID) {
-              setCustomerSentiment(message.sentiment.polarity.score)
-            }
-            else {
-              setAgentSentiment(message.sentiment.polarity.score);
-            }
-          })
+          console.log('message_response: ', data.messages);
+          setSymblMessageResponse(data?.messages);
         }
 
         if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
-          console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
+         console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
+          setLiveTranscript(data.message);
+        }
+        if(data.type === 'message') {
+         // console.log('message: ', data.message);
         }
 
         if (data.type === 'insight_response') {
           console.log('insight response');
           console.log(data);
-          for (let insight of data.insights) {
+          for (const insight of data.insights) {
             if(insight.from.userId !== AGENT_USER_ID && insight.type === 'question') {
               addCustomerQuestionInsight(insight.payload.content);
             }
@@ -210,6 +232,6 @@ export const AgentCallRoom = function AgentCallRoom() {
   
   return (
 
-<AgentCallRoomView customerQuestionInsights={customerQuestionInsights} onDisconnect={onDisconnect} agentSentiment={agentSentiment} customerSentiment={customerSentiment}/>
+<AgentCallRoomView symblMessages={symblMessages} customerQuestionInsights={customerQuestionInsights} onDisconnect={onDisconnect}/>
   );
 };
