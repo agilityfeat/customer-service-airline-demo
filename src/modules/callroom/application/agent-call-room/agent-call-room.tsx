@@ -17,13 +17,13 @@ const AGENT_USER_ID = 'fahad.mahmoood@agilityfeat.com';
 
 export const AgentCallRoom = function AgentCallRoom() {
     const [isStreamSubscribed, setIsStreamSubscribed] = useState(false);
-    const [conversationId, setConversationId] = useState();
     const [symblMessages, setSymblMessages] = useState([]);
     const [customerQuestionInsights, setCustomerQuestionInsights] = useState<string[]>([]);
     const questionInsightsRef = useRef<string[]>([]);
     const symblSocketRef = useRef<undefined | WebSocket>();
     const otSessionRef = useRef<any>();
     const symblMessageRef = useRef<any>([]);
+    const conversationIdRef = useRef<string>('');
     const router = useRouter();
     const scrollToBottom = useScrollToBottom();
 
@@ -94,7 +94,7 @@ export const AgentCallRoom = function AgentCallRoom() {
       symblSocket.onmessage = (event) => {
         const data: any = JSON.parse(event.data);
         if(data.type === 'message' && data?.message?.data ) {
-          setConversationId(data.message.data.conversationId);
+          conversationIdRef.current = data.message.data.conversationId;
         }
         if (data.type === 'message_response') {
           console.log('message_response: ', data.messages);
@@ -171,8 +171,7 @@ export const AgentCallRoom = function AgentCallRoom() {
 
     const finishCall = () => {
       toast.success('Call Finished!');
-      console.log(conversationId);
-      router.push(`/call-finish/${conversationId}`);
+      router.push(`/call-finish/${conversationIdRef.current}`);
     }
 
   const initializeSession = (OT) => {
