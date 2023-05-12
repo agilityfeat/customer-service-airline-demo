@@ -12,6 +12,7 @@ import { Header } from '../header';
 import { Main } from '../main';
 import { QuestionInsights } from '../questionInsights';
 import { CallSentiments } from '../call-sentiments';
+import { Summary } from '../summary';
 import styles from './index.module.scss';
 
 const TITLE1 = 'Audio Tracks';
@@ -29,6 +30,7 @@ const AgentSummary = function Home() {
   const { conversationId } = router.query as { conversationId: string };
   const { data: questionsData, isLoading: questionsLoading } = useSWR(conversationId ? `${symblConfig.BASE_URI}/conversations/${conversationId}/questions` : null, fetcher)
   const { data: messagesData, isLoading: messageResponsesLoading } = useSWR(conversationId ? `${symblConfig.BASE_URI}/conversations/${conversationId}/messages?sentiment=true` : null, fetcher)
+  const { data: summaryData, isLoading: summaryLoading } = useSWR(conversationId ? `${symblConfig.BASE_URI}/conversations/${conversationId}/summary` : null, fetcher);
 
 
   const getMessageAuthor = (userId: string) => {
@@ -123,6 +125,7 @@ const symblMessages =  useMemo(() => {
       </div>
       </div>
       <div className={styles.secondSection}>
+        <Summary data={summaryData ?? []} isLoading={summaryLoading} />
         <QuestionInsights customerQuestionInsights={questionsData?.questions ?? []}  isLoading={questionsLoading}/>
         <CallSentiments symblMessages={symblMessages} isLoading={messageResponsesLoading} />
       </div>
