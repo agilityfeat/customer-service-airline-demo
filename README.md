@@ -13,7 +13,7 @@
   <h3 align="center">Air WebRTC: Customer Airline Service Demo Project</h3>
 
   <p align="center">
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>View Blog Post»</strong></a>
+    <a href="https://webrtc.ventures/2023/02/enhancing-customer-service-experiences-with-vonage-and-symbl-ai/"><strong>View Blog Post»</strong></a>
   </p>
 </div>
 
