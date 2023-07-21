@@ -1,122 +1,167 @@
-# WebRTC.ventures front end template
+<a name="readme-top"></a>
 
-This is a template front end repository to use as base or inspiration for new development projects. It intents to follow clean architecture.
 
-For these examples, we chose to use our preferred [React](https://reactjs.org/) framework [Next.js](https://nextjs.org/), but the whole point of this architecture is to be able to use it independently of the frameworks and libraries used (external dependencies).
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/agilityfeat/customer-service-airline-demo">
+    <img src="public/icons/logo.svg" alt="Logo" width="300" height="300">
+  </a>
+  
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-In order to have a basic example, we chose a simple subject: a todo list!
+  <h3 align="center">Air WebRTC: Customer Airline Service Demo Project</h3>
 
-To see the tasks that still need to be done on the project, go to the /docs/todo.md file
+  <p align="center">
+    <a href="https://github.com/othneildrew/Best-README-Template"><strong>View Blog Post»</strong></a>
+  </p>
+</div>
 
-If you have any questions, suggestions or anything else, you can contact me @ alberto@webrtc.ventures!
 
-## Summary
 
-1. [Getting started](#getting-started)
-2. [Clean architecture](#clean-architecture)
-    1. [Use case](#use-case)
-    2. [Primary port](#primary-port)
-    3. [Primary adapter](#primary-adapter)
-    4. [Secondary port](#secondary-port)
-    5. [Secondary adapter](#secondary-adapter)
-3. [Resources](#resources)
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-## Background
 
-**Linting**
 
-We use this tool to analyze source code to flag programming errors, bugs, stylistic errors and suspicious constructs. We generally recommend following [airbnb](https://airbnb.io/javascript/) simplistic style guide.
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-**Prettier**
 
-In the file .prettierrc we will define style related rules.
-Prettier does nothing to help with code-quality rules. They are also the most important ones provided by linters as they are likely to catch real bugs with your code!
+This is a demo project to present how customer services can be enhanced using Symbl.ai and Vonage communication API. 
 
-**Testing**
+Here's a quick description about the functionality of the demo project:
+* Customers can connect with the airline's customer care agents using Vonage SDK.
+* They can share their audio and video along with controls to turn them on/off.
+* Airline customer care agents can see real-time sentiment analysis during the conversation along with the transcription. 
+* Airline agents can view all the questions asked by customers during the real-time conversation.
+.
 
-In this example we are using jest...TBC
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Getting started
 
-First, install the dependencies:
 
-```bash
-npm install
-# or
-yarn install
-```
+### Built With
 
-Then run the development server:
+Following framework/libraries were used to develop the project.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+* [![Next][Next.js]][Next-url]
+* [![React][React.js]][React-url]
+* [![Vonage][Vonage.sdk]][Vonage-url]
+* [![Symbl][Symbl.ai]][Symbl-url]
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
---
 
-To start unit tests:
 
-```bash
-jest
-```
+<!-- GETTING STARTED -->
+## Getting Started
 
---
+Follow these simple steps to get a copy of the project running in your local environment.
 
-### Starting with Docker
+### Prerequisites
 
-Go to the directory that has your Dockerfile and run the following command to build the Docker image. The -t flag lets you tag your image so it's easier to find later using the docker images command:
+This is an example of how to list things you need to use the software and how to install them.
+* [Nodejs](https://www.nodejs.org)
+* [Vonage account](https://www.vonage.com)
+* [Symbl.ai account](https://www.symbl.ai)
 
-```
-docker build . -t <your username>/frontend-template
-```
 
-Run the image you previously built:
+### Installation
 
-```
-docker run -p 3000:3000 -d <your username>/frontend-template
-```
+_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-### To try the app online
+1. Create an opentok application from vonage dashboard and note down api key and secret.
 
-[https://webrtc-template.herokuapp.com](https://webrtc-template.herokuapp.com/)
+2. Clone the repo
+   ```sh
+   git clone https://github.com/agilityfeat/customer-service-airline-demo.git
+   ```
+4. Install NPM packages
+   ```sh
+   npm install
+   ```
+5. Create a .env file and add following opentok environment variables
+   ```js
+   NEXT_PUBLIC_OPENTOK_API_KEY='ENTER YOUR OPENTOK API KEY';
+   NEXT_PUBLIC_OPENTOK_SECRET='ENTER YOUR OPENTOK APPLICATION SECRET';
+   NEXT_PUBLIC_OPENTOK_SESSION_ID='ENTER YOUR GENERATED OPENTOK SESSION ID';
+   NEXT_PUBLIC_OPENTOK_TOKEN='ENTER YOUR GENERATED OPENTOK ACCESS TOKEN';
+   ```
+6. Add following variables from the symbl.ai dashboard in the src/config/symbl.ts file
+  ```js
+    const symblConfig = {
+        BASE_URI: 'https://api.symbl.ai/v1',
+        SESSION_ID: 'ANY UNIQUE SESSION ID',
+        ACCESS_TOKEN: 'ENTER GENERATED Symbl.ai Access Token',
+    };
+   ```
+7. Run the project from the terminal using: ``` npm run start or yarn start ```
 
-## Clean architecture
 
-The hexagonal architecture, or architecture based on ports and adapters, is an architectural pattern used in the field of software design. It aims to create systems based on application components which are loosely coupled and which can be easily connected to their software environment by means of ports and adapters. These components are modular and interchangeable, which reinforces the consistency of processing and facilitates the automation of tests.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-There are three parts in the clean architecture: the application part (the primary ports and adapters), the domain (the use cases, the domain models, etc.) and the infrastructure part (the secondary ports and adapters).
 
-This architecture is based on the port / adapter pattern and the dependency inversion principle.
 
-_By documenting you on clean architecture (or hexagonal architecture). You will find different names for these parts. The names chosen here are personal, the goal being that they are understandable._
+<!-- CONTRIBUTING -->
+## Contributing
 
-### Use case
-The uses cases define the actions of your users. The goal is not to use any framework or libraries in these elements (in order to keep a logic not coupled to these tools).
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-On the front, they can be represented by function, by class written in JS or TS. With React, it is possible to use redux for this part.
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star! Thanks again!
 
-In case redux is used, the actions are the use-cases, the state is one of the models, and the selectors are used to map.
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-### Primary port
-The primary port is used to establish a contract between the primary adapter and the use cases. For this, an interface can be created. In practice, the use case is also considered a primary port.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### Primary adapter
-Then, the implementation of these interfaces are used to dialogue with the domain: the first is what we call the primary adapters. Their goal is to trigger the execution of use cases. For example on the front, these adapters can be the React components that perform triggers an action (redux or not).
 
-### Secondary port
-The secondary port is used to establish a contract between the secondary adapter and the use cases. For this, we usually create an interface. This interface is used directly in the use case.
 
-_Tips: you can use dependency injection for that, some state management libraries allow you to do that. For example with [redux-thunk](https://github.com/reduxjs/redux-thunk#injecting-a-custom-argument) and [redux-observable](https://redux-observable.js.org/docs/recipes/InjectingDependenciesIntoEpics.html) it is possible to pass "extraArguments" which will be directly available in the redux actions. In "vanilla", there is also [InversifyJS](https://github.com/inversify/InversifyJS)._
 
-### Secondary adapter
-The second implementation of interfaces (ports) is called secondary adapters. They are called by the use cases. For example in front, these adapters can be the HTTP requests, the access to the data present in the local-storage, etc.
+<!-- CONTACT -->
+## Contact
 
-## Resources
-- [Hexagonal architecture by Alistair Cockburn](https://alistair.cockburn.us/hexagonal-architecture/)
+Webrtc.ventures Team - [@WebRTCVentures](https://twitter.com/WebRTCVentures) - info@webrtc.ventures
 
-## Credit
-Application was originally based on: https://github.com/dimitridumont/clean-architecture-front-end
+Project Link: [https://github.com/agilityfeat/customer-service-airline-demo](https://github.com/agilityfeat/customer-service-airline-demo)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/company/webrtc-ventures
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vonage.sdk]: https://img.shields.io/badge/Vonage-black?style=for-the-badge
+[Vonage-url]: https://vonage.com/
+[Symbl.ai]: https://img.shields.io/badge/Symbl.ai-563D7C?style=for-the-badge
+[Symbl-url]: https://symbl.ai/
