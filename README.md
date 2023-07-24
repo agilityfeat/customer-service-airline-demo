@@ -96,11 +96,11 @@ _Below is an example of how you can instruct your audience on installing and set
    ```sh
    git clone https://github.com/agilityfeat/customer-service-airline-demo.git
    ```
-4. Install NPM packages
+3. Install NPM packages
    ```sh
    npm install
    ```
-5. Create a .env file and add following opentok environment variables
+4. Create a .env file and add following opentok environment variables
    ```js
    /* PRODUCTION WARNING! A secure mechanism with proper authentication should be used to generate opentok access token and session Id */
 
@@ -109,7 +109,8 @@ _Below is an example of how you can instruct your audience on installing and set
    NEXT_PUBLIC_OPENTOK_SESSION_ID='ENTER YOUR GENERATED OPENTOK SESSION ID';
    NEXT_PUBLIC_OPENTOK_TOKEN='ENTER YOUR GENERATED OPENTOK ACCESS TOKEN';
    ```
-6. Add following variables from the symbl.ai dashboard in the src/config/symbl.ts file
+
+5. Add following variables from the symbl.ai dashboard in the src/config/symbl.ts file
   ```js
    /* PRODUCTION WARNING! A secure mechanism with proper authentication should be used to generate symbl.ai access token and session Id */
 
@@ -119,7 +120,8 @@ _Below is an example of how you can instruct your audience on installing and set
         ACCESS_TOKEN: 'ENTER GENERATED Symbl.ai Access Token',
     };
    ```
-7. Run the project from the terminal using: ``` npm run start or yarn start ```
+
+6. Run the project from the terminal using: ``` npm run start or yarn start ```
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
