@@ -102,6 +102,8 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 5. Create a .env file and add following opentok environment variables
    ```js
+   /* PRODUCTION WARNING! A secure mechanism with proper authentication should be used to generate opentok access token and session Id */
+
    NEXT_PUBLIC_OPENTOK_API_KEY='ENTER YOUR OPENTOK API KEY';
    NEXT_PUBLIC_OPENTOK_SECRET='ENTER YOUR OPENTOK APPLICATION SECRET';
    NEXT_PUBLIC_OPENTOK_SESSION_ID='ENTER YOUR GENERATED OPENTOK SESSION ID';
@@ -109,6 +111,8 @@ _Below is an example of how you can instruct your audience on installing and set
    ```
 6. Add following variables from the symbl.ai dashboard in the src/config/symbl.ts file
   ```js
+   /* PRODUCTION WARNING! A secure mechanism with proper authentication should be used to generate symbl.ai access token and session Id */
+
     const symblConfig = {
         BASE_URI: 'https://api.symbl.ai/v1',
         SESSION_ID: 'ANY UNIQUE SESSION ID',
